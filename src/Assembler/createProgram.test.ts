@@ -35,3 +35,35 @@ Deno.test("Should have Int8Push Opcode and 0x42", () => {
     instructions: [Opcode.Int8Push, 0x42],
   });
 });
+
+Deno.test("Should have Print Opcode", () => {
+  const buffer = createProgram([
+    Instruction.Print(),
+  ]);
+
+  const instructions = dataViewToArray(new DataView(buffer));
+
+  assertEquals(buffer.byteLength, 1);
+  assertObjectMatch({
+    instructions,
+  }, {
+    instructions: [Opcode.Print],
+  });
+});
+
+Deno.test("Should make a program that print a Int8", () => {
+  const buffer = createProgram([
+    Instruction.Int8Push(0x42),
+    Instruction.Print(),
+    Instruction.Halt(),
+  ]);
+
+  const instructions = dataViewToArray(new DataView(buffer));
+
+  assertEquals(buffer.byteLength, 4);
+  assertObjectMatch({
+    instructions,
+  }, {
+    instructions: [Opcode.Int8Push, 0x42, Opcode.Print, Opcode.Halt],
+  });
+});
