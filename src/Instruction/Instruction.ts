@@ -13,7 +13,7 @@ export enum InstructionType {
 export type Instruction = Readonly<
   {
     type: InstructionType.ZeroOperand;
-    opcode: Opcode.Halt;
+    opcode: Opcode.Halt | Opcode.Print;
   } | {
     type: InstructionType.Literal;
     opcode: Opcode.Int8Push;
@@ -21,9 +21,6 @@ export type Instruction = Readonly<
       data: number;
       byteLength: 1;
     };
-  } | {
-    type: InstructionType.ZeroOperand;
-    opcode: Opcode.Print;
   }
 >;
 export const Instruction = { Halt, Int8Push, Print };
