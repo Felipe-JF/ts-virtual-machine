@@ -2,13 +2,21 @@ export enum Opcode {
   Halt,
   INT8_PUSH,
 }
+export enum InstructionType {
+  Literal,
+  ZeroOperand,
+  OneOperand,
+  TwoOperand,
+}
 
 export type Instruction = Readonly<
   {
-    type: Opcode.Halt;
+    type: InstructionType.ZeroOperand;
+    opcode: Opcode.Halt;
   } | {
-    type: Opcode.INT8_PUSH;
-    payload: {
+    type: InstructionType.Literal;
+    opcode: Opcode.INT8_PUSH;
+    literal: {
       data: number;
       byteLength: 1;
     };
@@ -16,7 +24,10 @@ export type Instruction = Readonly<
 >;
 
 export function Halt(): Instruction {
-  return { type: Opcode.Halt };
+  return {
+    type: InstructionType.ZeroOperand,
+    opcode: Opcode.Halt,
+  };
 }
 
 export function Int8Push(value: number): Instruction {
@@ -24,8 +35,9 @@ export function Int8Push(value: number): Instruction {
     throw new Error("");
   }
   return {
-    type: Opcode.INT8_PUSH,
-    payload: {
+    type: InstructionType.Literal,
+    opcode: Opcode.INT8_PUSH,
+    literal: {
       data: value,
       byteLength: 1,
     },
