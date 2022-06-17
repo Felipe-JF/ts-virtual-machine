@@ -22,7 +22,11 @@ export class Stack {
   }
 
   get(relative: number) {
-    return this.array[this.top - 1 - relative];
+    const value = this.array[this.top - 1 - relative];
+    if (!value) {
+      throw new Error("");
+    }
+    return value;
   }
 
   set(relative: number, value: number) {
