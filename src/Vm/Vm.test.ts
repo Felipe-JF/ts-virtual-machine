@@ -16,16 +16,16 @@ Deno.test("Vm should fetch an int8", () => {
 });
 
 Deno.test("Should print a number", async () => {
-  const prints: number[] = [];
-  function print(data: number) {
-    prints.push(data);
+  const outputs: number[] = [];
+  function stdOut(data: number) {
+    outputs.push(data);
   }
   const rom = createProgram([
     Instruction.Int8Push(42),
-    Instruction.Print(),
+    Instruction.StdOut(),
     Instruction.Halt(),
   ]);
-  const vm = new Vm(rom, print);
+  const vm = new Vm(rom, stdOut);
   await vm.start();
-  assertObjectMatch({ prints }, { prints: [42] });
+  assertObjectMatch({ outputs }, { outputs: [42] });
 });

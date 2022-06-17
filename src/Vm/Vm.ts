@@ -8,7 +8,10 @@ export class Vm {
   private program: DataView;
   private ip = 0;
 
-  constructor(rom = new ArrayBuffer(8), private print: (data: number) => void) {
+  constructor(
+    rom = new ArrayBuffer(8),
+    private stdOut: (data: number) => void,
+  ) {
     this.program = new DataView(rom);
   }
 
@@ -39,9 +42,9 @@ export class Vm {
         this.executionUnit.i8Literal(value);
         return false;
       }
-      case Opcode.Print: {
+      case Opcode.StdOut: {
         const data = this.stack.get(0);
-        this.print(data);
+        this.stdOut(data);
         return false;
       }
     }
