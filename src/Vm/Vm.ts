@@ -1,5 +1,5 @@
 import { ExecutionUnit } from "../ExecutionUnit/ExecutionUnit.ts";
-import { Opcode } from "../Opcode/Opcode.ts";
+import { Opcode } from "../Instruction/Instruction.ts";
 
 export class Vm {
   private executionUnit = new ExecutionUnit();
