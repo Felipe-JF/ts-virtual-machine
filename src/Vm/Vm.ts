@@ -19,10 +19,13 @@ export class Vm {
       case Opcode.Halt: {
         return true;
       }
-      case Opcode.INT8_PUSH: {
+      case Opcode.Int8Push: {
         const value = this.i8Fetch();
         this.executionUnit.i8Literal(value);
         return false;
+      }
+      case Opcode.Print: {
+        throw new Error("");
       }
     }
   }
