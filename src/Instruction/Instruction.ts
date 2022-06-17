@@ -1,7 +1,8 @@
 export enum Opcode {
   Halt,
   Int8Push,
-  StdOut,
+  StdOut0,
+  Add0,
 }
 export enum InstructionType {
   Literal,
@@ -13,7 +14,7 @@ export enum InstructionType {
 export type Instruction = Readonly<
   {
     type: InstructionType.ZeroOperand;
-    opcode: Opcode.Halt | Opcode.StdOut;
+    opcode: Opcode.Halt | Opcode.StdOut0 | Opcode.Add0;
   } | {
     type: InstructionType.Literal;
     opcode: Opcode.Int8Push;
@@ -23,7 +24,7 @@ export type Instruction = Readonly<
     };
   }
 >;
-export const Instruction = { Halt, Int8Push, StdOut };
+export const Instruction = { Halt, Int8Push, StdOut0, Add0 };
 
 function Halt(): Instruction {
   return {
@@ -46,9 +47,16 @@ function Int8Push(value: number): Instruction {
   };
 }
 
-function StdOut(): Instruction {
+function StdOut0(): Instruction {
   return {
     type: InstructionType.ZeroOperand,
-    opcode: Opcode.StdOut,
+    opcode: Opcode.StdOut0,
+  };
+}
+
+function Add0(): Instruction {
+  return {
+    type: InstructionType.ZeroOperand,
+    opcode: Opcode.Add0,
   };
 }

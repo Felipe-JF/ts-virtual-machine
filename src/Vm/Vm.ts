@@ -42,9 +42,13 @@ export class Vm {
         this.executionUnit.i8Literal(value);
         return false;
       }
-      case Opcode.StdOut: {
-        const data = this.stack.get(0);
+      case Opcode.StdOut0: {
+        const data = this.stack.pop();
         this.stdOut(data);
+        return false;
+      }
+      case Opcode.Add0: {
+        this.executionUnit.add0();
         return false;
       }
     }
