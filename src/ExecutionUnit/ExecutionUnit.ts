@@ -9,5 +9,6 @@ export class ExecutionUnit {
       throw new RangeError("");
     }
     this.stack.push(value);
+    return this;
   }
 }
