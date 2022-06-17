@@ -32,6 +32,6 @@ Deno.test("Should have Int8Push Opcode and 0x42", () => {
   assertObjectMatch({
     instructions,
   }, {
-    instructions: [Opcode.INT8_PUSH, 0x42],
+    instructions: [Opcode.Int8Push, 0x42],
   });
 });
