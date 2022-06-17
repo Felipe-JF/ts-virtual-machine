@@ -22,3 +22,17 @@ Deno.test("Stack should pop a value", () => {
   const value = stack.pop();
   assertEquals(value, 42);
 });
+
+Deno.test("Stack should get a value", () => {
+  const stack = new Stack(8);
+  stack.push(42);
+  const value = stack.get(0);
+  assertEquals(value, 42);
+});
+Deno.test("Stack should set a value", () => {
+  const stack = new Stack(8);
+  stack.push(42);
+  stack.set(0, 24);
+  const value = stack.get(0);
+  assertEquals(value, 24);
+});
