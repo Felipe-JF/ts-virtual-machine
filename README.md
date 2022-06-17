@@ -1,2 +1,2 @@
 # ts-virtual-machine
- A virtual machine made with Typescript
+A stack-based virtual machine with variable instruction length made with typescript and deno
