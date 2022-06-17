@@ -22,6 +22,7 @@ export type Instruction = Readonly<
     };
   }
 >;
+export const Instruction = { Halt, Int8Push };
 
 export function Halt(): Instruction {
   return {
