@@ -11,4 +11,18 @@ export class ExecutionUnit {
     this.stack.push(value);
     return this;
   }
+
+  add0() {
+    this.alu0(add);
+  }
+
+  private alu0(fn: (a: number, b: number) => number) {
+    const a = this.stack.pop();
+    const b = this.stack.pop();
+    this.stack.push(fn(a, b));
+  }
+}
+
+function add(a: number, b: number) {
+  return a + b;
 }
