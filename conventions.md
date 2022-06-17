@@ -1,0 +1,1 @@
+All instructions with 0 operands will be computed with top of stack elements like add0, decrement.
