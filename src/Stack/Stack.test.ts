@@ -1,5 +1,6 @@
 import {
   assertEquals,
+  assertObjectMatch,
   assertThrows,
 } from "https://deno.land/std@0.144.0/testing/asserts.ts";
 import { Stack } from "./Stack.ts";
@@ -29,10 +30,19 @@ Deno.test("Stack should get a value", () => {
   const value = stack.get(0);
   assertEquals(value, 42);
 });
+
 Deno.test("Stack should set a value", () => {
   const stack = new Stack(8);
   stack.push(42);
   stack.set(0, 24);
   const value = stack.get(0);
   assertEquals(value, 24);
+});
+
+Deno.test("Stack should get top items", () => {
+  const stack = new Stack(8);
+  stack.push(42);
+  stack.push(24);
+  const value = stack.getTopItems(2);
+  assertObjectMatch({ value }, { value: [42, 24] });
 });
