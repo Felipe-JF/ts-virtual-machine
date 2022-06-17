@@ -14,7 +14,11 @@ export class Stack {
   }
 
   pop() {
-    return this.array[--this.top];
+    const value = this.array[--this.top];
+    if (!value) {
+      throw new Error("");
+    }
+    return value;
   }
 
   get(relative: number) {
