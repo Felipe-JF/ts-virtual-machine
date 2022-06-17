@@ -13,13 +13,14 @@ export class ExecutionUnit {
   }
 
   add0() {
-    this.alu0(add);
+    return this.alu0(add);
   }
 
   private alu0(fn: (a: number, b: number) => number) {
     const a = this.stack.pop();
     const b = this.stack.pop();
     this.stack.push(fn(a, b));
+    return this;
   }
 }
 
