@@ -29,7 +29,6 @@ export class Stack {
   }
 
   getTopItems(quantity: number): ReadonlyArray<number> {
-    console.log(this.array);
     return Array.from(this.array.slice(this.top - quantity, this.top));
   }
 }

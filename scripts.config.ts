@@ -6,6 +6,10 @@ const config: DenonConfig = {
       cmd: "deno run ./src/index.ts",
       desc: "Run app",
     },
+    test: {
+      cmd: "deno test ./src",
+      watch: false,
+    },
   },
 };
 
