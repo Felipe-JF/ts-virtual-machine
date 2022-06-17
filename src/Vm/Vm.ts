@@ -1,17 +1,32 @@
 import { ExecutionUnit } from "../ExecutionUnit/ExecutionUnit.ts";
 import { Opcode } from "../Instruction/Instruction.ts";
+import { Stack } from "../Stack/Stack.ts";
 
 export class Vm {
-  private executionUnit = new ExecutionUnit();
+  private stack = new Stack(256);
+  private executionUnit = new ExecutionUnit(this.stack);
   private program: DataView;
   private ip = 0;
 
-  constructor(rom = new ArrayBuffer(8)) {
+  constructor(rom = new ArrayBuffer(8), private print: (data: number) => void) {
     this.program = new DataView(rom);
   }
 
   i8Fetch() {
     return this.program.getInt8(this.ip++);
+  }
+  start() {
+    return this.loop();
+  }
+  async loop() {
+    while (true) {
+      await Promise.resolve();
+      const opcode = this.i8Fetch();
+      const halt = this.step(opcode);
+      if (halt) {
+        return;
+      }
+    }
   }
 
   step(opcode: Opcode): boolean {
@@ -25,7 +40,9 @@ export class Vm {
         return false;
       }
       case Opcode.Print: {
-        throw new Error("");
+        const data = this.stack.get(0);
+        this.print(data);
+        return false;
       }
     }
   }
