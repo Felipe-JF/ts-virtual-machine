@@ -6,14 +6,21 @@ export function createProgram(instructions: Instruction[]): ArrayBuffer {
   const program = new DataView(new ArrayBuffer(byteLength));
   let pointer = 0;
   for (const instruction of instructions) {
-    program.setUint8(pointer++, instruction.opcode);
     switch (instruction.type) {
       case InstructionType.Literal: {
         switch (instruction.literal.byteLength) {
           case 1: {
+            program.setUint8(pointer++, instruction.opcode);
             program.setInt8(pointer, instruction.literal.data);
+            pointer += instruction.literal.byteLength;
+            break;
           }
         }
+        break;
+      }
+      case InstructionType.ZeroOperand: {
+        program.setUint8(pointer++, instruction.opcode);
+        break;
       }
     }
   }
