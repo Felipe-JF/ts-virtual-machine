@@ -22,10 +22,27 @@ Deno.test("Should print a number", async () => {
   }
   const rom = createProgram([
     Instruction.Int8Push(42),
-    Instruction.StdOut(),
+    Instruction.StdOut0(),
     Instruction.Halt(),
   ]);
   const vm = new Vm(rom, stdOut);
   await vm.start();
   assertObjectMatch({ outputs }, { outputs: [42] });
+});
+
+Deno.test("Should add two numbers and print", async () => {
+  const outputs: number[] = [];
+  function stdOut(data: number) {
+    outputs.push(data);
+  }
+  const rom = createProgram([
+    Instruction.Int8Push(12),
+    Instruction.Int8Push(34),
+    Instruction.Add0(),
+    Instruction.StdOut0(),
+    Instruction.Halt(),
+  ]);
+  const vm = new Vm(rom, stdOut);
+  await vm.start();
+  assertObjectMatch({ outputs }, { outputs: [46] });
 });
